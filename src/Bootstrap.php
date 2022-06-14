@@ -118,10 +118,8 @@ class Bootstrap
             $sms_settings .= '"' . $value . '",';
         }
 
-        //$sms_settings = substr_replace($sms_settings, "", -1);
         fwrite($handle, $sms_settings);
-        fwrite($handle, '"' . substr($GLOBALS['fileroot'], 0, -8));
-        fwrite($handle, '"');
+        fwrite($handle, '"' . $GLOBALS['fileroot'] . '"');
         fclose($handle);
     }
 
