@@ -68,7 +68,7 @@ class GlobalConfig
                 'title' => 'Enable SMS Service Reminders',
                 'description' => 'Disabling temporarily deactivates text reminders. To deactivate permanently simply uninstall the module.',
                 'type' => GlobalSetting::DATA_TYPE_BOOL,
-                'default' => ''
+                'default' => '1'
             ],
             self::CONFIG_SMS_GATEWAY_APIKEY => [
                 'title' => 'SMS Gateway Key',
@@ -80,7 +80,7 @@ class GlobalConfig
                 'title' => 'SMS Send Before Hours',
                 'description' => 'Maximum lead time.',
                 'type' => GlobalSetting::DATA_TYPE_TEXT,
-                'default' => '168'
+                'default' => '48'
             ]
         ];
         return $settings;
