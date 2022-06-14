@@ -25,12 +25,12 @@ $ignoreAuth = 1; // Somehow needed or script won't run secondary to lack of site
 // $csv[0] -> "1" if enabled, "" if not
 // $csv[1] -> gateway_apikey
 // $csv[2] -> SMS send before hours
-// $csv[3] -> openemr installation directory (i.e., /var/www/html)
+// $csv[3] -> openemr installation directory (i.e., /var/www/html/openemr)
 
-include_once($csv[3] . "/openemr/interface/globals.php");
-include_once($csv[3] . "/openemr/library/sql.inc");
-include_once($csv[3] . "/openemr/interface/modules/custom_modules/oe-module-custom-sms-reminders/public/cron_textbelt_functions.php");
-include_once($csv[3] . "/openemr/interface/modules/custom_modules/oe-module-custom-sms-reminders/public/sms_textbelt.php");
+include_once($csv[3] . "/interface/globals.php");
+include_once($csv[3] . "/library/sql.inc");
+include_once($csv[3] . "/interface/modules/custom_modules/oe-module-custom-sms-reminders/public/cron_textbelt_functions.php");
+include_once($csv[3] . "/interface/modules/custom_modules/oe-module-custom-sms-reminders/public/sms_textbelt.php");
 
 // object for sms
 global $mysms;
@@ -64,12 +64,12 @@ if ( !empty($db_patient) && $csv[0] == '1' ) {
 		if ($remain_hour >= -($SMS_SEND_BEFORE_HOURS) && $remain_hour <= $SMS_SEND_BEFORE_HOURS) {
  			// insert entry in notification_log table
  			$strMsg = cron_InsertNotificationLogEntry($prow);
-            // echo $strMsg . "\n";
+                        // echo $strMsg . "\n";
 
  			// *************************************************************************************************
 			// Sends sms to patient, REMARK OUT next line for testing (or add "_test" to apikey). UNREMARK to
 			// actually send a message.
-			// cron_SendSMS($prow['phone_cell'], $strMsg);
+			cron_SendSMS($prow['phone_cell'], $strMsg);
 
  			// *************************************************************************************************
  			// Sets openemr_postcalendar_events.pc_sendalertsms to 'YES' to prevent further transmissions of SMS.
@@ -77,7 +77,7 @@ if ( !empty($db_patient) && $csv[0] == '1' ) {
  			// it's inconvenient to keep resetting pc_sendalertsms from 'NO' to 'YES' so keep this remarked out.
  			// You'll have unhappy patients if you keep texting them every hour so...
  			// REMARK OUT FOR TESTING! UNREMARK FOR PRODUCTION USE!
- 			// cron_updateentry($prow['pid'], $prow['pc_eid']);
+ 			cron_updateentry($prow['pid'], $prow['pc_eid']);
 		}
  		unset($csv);
 	}
