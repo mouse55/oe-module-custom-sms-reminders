@@ -1,6 +1,6 @@
 <?php
 
-/* interface/modules/custom-modules/oe-module-custm-sms-reminders/src/GlobalConfig.php
+/* interface/modules/custom-modules/oe-module-custom-sms-reminders/src/GlobalConfig.php
  *
  * @package   OpenEMR
  * @link      http://www.open-emr.org
