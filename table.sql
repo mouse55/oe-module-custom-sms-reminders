@@ -37,7 +37,7 @@ ALTER TABLE openemr_postcalendar_events MODIFY COLUMN pc_sendalertsms VARCHAR(3)
 UPDATE list_options SET option_id = 'spanish' WHERE option_id = 'Spanish';
 UPDATE list_options SET option_id = 'english' WHERE option_id = 'English';
 
-/* Create a table in which to hold the messages */
+/* Create a table in which to hold the messages (and two deletable sample messages). */
 CREATE TABLE IF NOT EXISTS `mod_custom_sms_reminders` (`id` INT(11) NOT NULL AUTO_INCREMENT,`language` VARCHAR(24) NOT NULL,
     `message` VARCHAR(256) NOT NULL, `activity` BOOLEAN NOT NULL DEFAULT '1', PRIMARY KEY (`id`), INDEX (`language`));
 INSERT INTO `mod_custom_sms_reminders` SET language = 'English', message = '***INITS*** has an appointment with ***PROVIDER*** ***DATE*** at ***STARTTIME***. Please phone XXX-XXXX for questions or cancellations.',
