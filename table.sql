@@ -3,7 +3,9 @@
 /* Adds column to patient_data table to hold permission status for text notifications. As written, this defaults
  * to 'YES', which works for me as I craft my messages not to hold protected health information. You may
  * wish to consider this carefully. */
+#IfMissingColumn patient_data allow_sms_reminders
 ALTER TABLE `patient_data` ADD COLUMN `allow_sms_reminders` VARCHAR(3) NOT NULL DEFAULT 'YES';
+#End If
 
 /* Next three statements add a custom yesno_default_yes list to the available lists - this forces the
  * default setting to 'YES', which was desired in my case. Be careful with this, as with it set to yes
@@ -11,6 +13,7 @@ ALTER TABLE `patient_data` ADD COLUMN `allow_sms_reminders` VARCHAR(3) NOT NULL 
  * problems, especially if protected health information is sent unsecurely or if texting is used
  * aggressively. It may be advisable to include an opt-out option in your message in order to allow
  * patients to decline text reminders. */
+#IfNotRow list_options option_id yesno_default_yes
 INSERT INTO list_options (list_id, option_id, title, seq, is_default, option_value, mapping, notes,
     codes, toggle_setting_1, toggle_setting_2, activity, subtype, edit_options) VALUES
     ('lists', 'yesno_default_yes', 'Yes/No (default yes)', 306, 1, 0, '', NULL, '', 0, 0, 1, '', 1);
@@ -20,6 +23,7 @@ INSERT INTO list_options (list_id, option_id, title, seq, is_default, option_val
 INSERT INTO list_options (list_id, option_id, title, seq, is_default, option_value, mapping, notes,
     codes, toggle_setting_1, toggle_setting_2, activity, subtype) VALUES
     ('yesno_default_yes','NO','NO','1','0','0','','N','','0','0','1','');
+#EndIf
 
 /* Next two statements add 'Allow SMS Reminders' dropdown box to end of Demographics>Choices section. Use
  * these on a per patient basis to override the default behavior (which is to allow texting) if desired. */
